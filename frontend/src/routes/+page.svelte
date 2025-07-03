@@ -1,29 +1,3 @@
-<script lang="ts">
-  import '../app.css'
-  import Postpreview from '$lib/components/postPreview.svelte'
-  import { onMount } from 'svelte';
-
-  let posts: App.PostData[] = []
-
-  onMount ( async () => {
-    try {
-      // 쿼리 문 추가히기
-      // page=${페이지}&limit=${리미트} 형태 문자열 추가하기
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts?`, {
-        method: 'GET'
-      })
-      // 응답 체크
-      if(!res.ok) throw new Error("Failed to load posts!")
-
-      const datas = await res.json()
-      posts = datas.posts
-    } catch (err) {
-      console.log(err)
-    }
-  })
-
-</script>
-
 <!-- 헤더 -->
 <header class="bg-gray-100 py-4 px-6 text-xl font-bold">
   DevTogether
@@ -65,3 +39,28 @@
   <button class="px-3 py-1 border rounded hover:bg-gray-100">1</button>
   <button class="px-3 py-1 border rounded hover:bg-gray-100">다음</button>
 </footer>
+
+<script lang="ts">
+  import Postpreview from '$lib/components/postPreview.svelte'
+  import { onMount } from 'svelte';
+
+  let posts: App.PostData[] = []
+
+  onMount ( async () => {
+    try {
+      // 쿼리 문 추가히기
+      // page=${페이지}&limit=${리미트} 형태 문자열 추가하기
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts?`, {
+        method: 'GET'
+      })
+      // 응답 체크
+      if(!res.ok) throw new Error("Failed to load posts!")
+
+      const datas = await res.json()
+      posts = datas.posts
+    } catch (err) {
+      console.log(err)
+    }
+  })
+
+</script>
