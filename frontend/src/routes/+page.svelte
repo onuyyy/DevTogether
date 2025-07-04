@@ -1,8 +1,9 @@
 <!-- 헤더 -->
 <header class="bg-gray-100 py-4 px-6 text-xl font-bold">
-  DevTogether
+  <a href="/">
+    DevTogether
+  </a>
 </header>
-
 <!-- 검색 및 필터 -->
 <section class="flex justify-between items-center p-4 border-b">
   <form>
@@ -26,6 +27,11 @@
 
 <!-- 게시글 리스트 -->
 <main class="p-4 space-y-3">
+  {#if posts.length == 0}
+    <p
+      class="flex justify-center text-neutral-500 my-10"
+    >게시글이 비었습니다.. 나중에 다시 방문해주세요</p>
+  {/if}
   {#each posts as post}
     <Postpreview data={post}/>
   {/each}
@@ -35,9 +41,11 @@
 <!-- 페이지 수는 어떻게 세지 -->
 <!-- PageInfo 형태로 줘야하려나 -->
 <footer class="flex justify-center items-center gap-2 py-4">
-  <button class="px-3 py-1 border rounded hover:bg-gray-100">이전</button>
-  <button class="px-3 py-1 border rounded hover:bg-gray-100">1</button>
-  <button class="px-3 py-1 border rounded hover:bg-gray-100">다음</button>
+  {#if posts.length > 0}
+    <button class="px-3 py-1 border rounded hover:bg-gray-100">이전</button>
+    <button class="px-3 py-1 border rounded hover:bg-gray-100">1</button>
+    <button class="px-3 py-1 border rounded hover:bg-gray-100">다음</button>
+  {/if}
 </footer>
 
 <script lang="ts">
