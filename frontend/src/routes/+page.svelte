@@ -22,9 +22,11 @@
 <!-- 게시글 리스트 -->
 <main class="p-4 space-y-3">
   {#if posts.length == 0}
-    <p
-      class="flex justify-center text-neutral-500 my-10"
-    >게시글이 비었습니다.. 나중에 다시 방문해주세요</p>
+    <div class="text-neutral-500 my-10 flex flex-col place-items-center">
+      <p class="m-1">게시글이 비었습니다..</p>
+      <p class="m-1">나중에 다시 방문하시거나..</p>
+      <p class="m-1">새로운 코드를 공유해주세요!</p>
+    </div>
   {/if}
   {#each posts as post}
     <Postpreview data={post}/>
