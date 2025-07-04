@@ -56,9 +56,8 @@
 </script>
 
 <script lang="ts">
-    import CommonComment from '$lib/components/commonComment.svelte';
+  import CommonComment from '$lib/components/commonComment.svelte';
 
-  import '../../../app.css'
   import hljs from 'highlight.js';
   import java from 'highlight.js/lib/languages/java'
   import 'highlight.js/styles/github-dark.css'
