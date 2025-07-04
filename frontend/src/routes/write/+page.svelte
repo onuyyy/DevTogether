@@ -1,7 +1,3 @@
-<header class="bg-gray-100 py-4 px-6 text-xl font-bold">
-  DevTogether
-</header>
-
 <!-- src/routes/+page.svelte -->
 <form on:submit|preventDefault={handleSubmit} class="flex h-screen">
   <!-- 왼쪽: 코드 블록 -->

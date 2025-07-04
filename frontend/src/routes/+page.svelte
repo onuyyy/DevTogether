@@ -1,9 +1,3 @@
-<!-- 헤더 -->
-<header class="bg-gray-100 py-4 px-6 text-xl font-bold">
-  <a href="/">
-    DevTogether
-  </a>
-</header>
 <!-- 검색 및 필터 -->
 <section class="flex justify-between items-center p-4 border-b">
   <form>
