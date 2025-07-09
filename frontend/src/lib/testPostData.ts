@@ -1,9 +1,39 @@
 export const testPostData: App.PostData = {
   post_code:`public class Main {
-    public static void main (String[] args) {
-      System.out.println("Hello, World!!");
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    Deck d = new Deck();
+
+    int Draw = 5;
+
+    Card hand[] = new Card[Draw];
+
+    Checker c;
+    while (true) {
+      d.shuffle();
+      System.out.println("Your hand is: ");
+      // 카드 뽑기
+      for (int i = 0; i < Draw; i++) {
+        hand[i] = d.cardArr[i];
+        System.out.println(hand[i]);
+      }
+
+      c = new Checker(hand);
+
+      System.out.print("\nYour set is ...");
+      System.out.println(" " + c.decision() + "!");
+
+      System.out.println("\nContinue? ('end' to end): ");
+      String ans = input.nextLine();
+
+      if (ans.equals("end")) {
+        // end 라고 칠 경우
+        input.close();
+        break;
+      }
     }
-  }`,
+  }
+}`,
     post_createdDate: "0000.00.00/00:00",
   
     post_id: -1,
@@ -31,11 +61,9 @@ export const testPostData: App.PostData = {
     
     <hr/>
     <blockquote>마크다운 문법은 웬만한건 들어갑니다.</blockquote>
-    <pre>
-      <code>public class Main {
+    <pre><code>public class Main {
   public static void main (String[] args) {
     System.out.println("Hello, World!!");
   }
-}</code>
-    </pre>`,
+}</code></pre>`,
 }

@@ -1,19 +1,25 @@
 <!-- src/routes/+page.svelte -->
 <form on:submit|preventDefault={handleSubmit} class="flex h-screen">
   <!-- 왼쪽: 코드 블록 -->
-  <div class="w-1/2 bg-black">
+  <div class="w-1/2 bg-onedark-black">
     <!-- 윗 블럭 -->
     <div class="flex justify-between bg-white">
       <p class="py-0.25 px-2 m-1">Java 21</p>
-      <button class="border-1 rounded-sm border-black py-0.25 px-2 m-1">코드 복사</button>
     </div>
     <!-- 코드 부분 -->
     <div class="p-2">
-      <textarea
+      <!--구 코드 입력 (textarea)-->
+      <!--<textarea
         class="text-white border-white border rounded-lg w-full h-200 p-2"
         name="code"
         placeholder="코드를 입력하세요."
-      ></textarea>
+      ></textarea>-->
+
+      <Codemirror 
+        bind:code
+        placeholderText="코드를 입력해주세요..."
+        className="text-lg"/>
+      <input type="hidden" name="content" value={code} />
     </div>
   </div>
 
@@ -35,8 +41,7 @@
           class="w-full border rounded-xl p-2 h-100"
           name="content"
           placeholder="내용을 입력하세요."
-        ></textarea>
-        -->
+        ></textarea>-->
         <Tiptap bind:content className=" w-full h-150 border-1 border-black p-2 rounded-lg mb-2 overflow-y-scroll"/>
         <input type="hidden" name="content" value={content} />
       </div>
@@ -57,8 +62,10 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import Tiptap from "$lib/components/tiptap/tiptap.svelte";
+  import Codemirror from "$lib/components/codemirror/codemirror.svelte";
   //
   let content = ''
+  let code = 'code test'
 
   // 폼 제출
   const handleSubmit = async (event: SubmitEvent) => {
@@ -68,7 +75,6 @@
 
     // 데이터 정제
     const title = data.get('title')
-    const code = data.get('code')
 
     // 데이터 묶어서 Json 화
     const jsonData = JSON.stringify({ title, content, code })
