@@ -1,27 +1,27 @@
 <!-- src/routes/+page.svelte -->
 <div class="flex h-screen">
   <!-- 왼쪽: 코드 블록 -->
-  <div class="w-1/2 bg-black">
+  <div class="w-1/2 bg-onedark-black">
     <!-- 윗 블럭 -->
     <div class="flex justify-between bg-white">
       <p class="py-0.25 px-2 m-1">Java 21</p>
       <button class="border-1 rounded-sm border-black py-0.25 px-2 m-1">코드 복사</button>
     </div>
     <!-- 코드 부분 -->
-    <div class="bg-black text-white p-4 overflow-scroll no-scrollbar font-mono text-sm leading-tight">
+    <div class="text-white p-4 overflow-scroll no-scrollbar font-mono text-sm leading-tight">
+      <!--구 코드 출력 (table 방식)-->
+      <!--
       <table class="table-fixed w-full">
         <tbody>
-          <!-- 반복 - data.code 줄 만큼 -->
           {#each (data.post_code ?? "").split('\n') as line, i}
             <tr>
-              <!-- 코드 번호 -->
               <td class="pr-4 text-right text-gray-500 select-none w-8 border-r-1 border-neutral-500">{i + 1}</td>
-              <!-- 코드 내용 -->
               <td class="align-top"><code class="language-java whitespace-pre">{line}</code></td>
             </tr>
           {/each}
         </tbody>
-      </table>
+      </table>-->
+      <Codemirror code={data.post_code} readOnly={true} className="text-lg"/>
     </div>
   </div>
 
@@ -59,6 +59,7 @@
   import "$lib/components/tiptap/tiptap.css"
 
   import CommonComment from '$lib/components/commonComment.svelte';
+  import Codemirror from "$lib/components/codemirror/codemirror.svelte";
   import { testPostData } from '$lib/testPostData';
 
   import hljs from 'highlight.js';
@@ -69,12 +70,12 @@
 
   hljs.registerLanguage('java', java)
 
+  const data: App.PostData = testPostData
+
   onMount(() => {
     const blocks = document.querySelectorAll('code')
     blocks.forEach((block) => {
       hljs.highlightElement(block as HTMLElement)
     })
   })
-
-  const data: App.PostData = testPostData
 </script>
