@@ -21,17 +21,17 @@
 
 <!-- 게시글 리스트 -->
 <main class="p-4 space-y-3">
-  {#if posts.length == 0}
+  <!-- {#if posts.length == 0}
+    <Postpreview data={GetPostResponseExample.posts.at(0)} />
     <div class="text-neutral-500 my-10 flex flex-col place-items-center">
-      <p class="m-1">게시글이 비었습니다..</p>
+      <p class="m-1">게시글이 비었습니다...</p>
       <p class="m-1">나중에 다시 방문하시거나..</p>
       <p class="m-1">새로운 코드를 공유해주세요!</p>
     </div>
-  {/if}
+  {/if} -->
   {#each posts as post}
     <Postpreview data={post}/>
   {/each}
-  <Postpreview data={testPostData}/>
 </main>
 
 <!-- 페이지네이션 -->
@@ -47,10 +47,11 @@
 
 <script lang="ts">
   import Postpreview from '$lib/components/postPreview.svelte'
-  import { testPostData } from '$lib/testPostData';
+  import { GetPostResponseExample } from '$lib/testPostData';
   import { onMount } from 'svelte';
 
-  let posts: App.PostData[] = []
+  let response: Api.GetPostsResponse
+  let posts: Api.GetPostsPosts[] = []
 
   onMount ( async () => {
     try {
@@ -63,7 +64,9 @@
       if(!res.ok) throw new Error("Failed to load posts!")
 
       const datas = await res.json()
-      posts = datas.posts
+      console.log(datas)
+      response = datas
+      posts = Array.isArray(response.posts) ? response.posts : []
     } catch (err) {
       console.log(err)
     }
