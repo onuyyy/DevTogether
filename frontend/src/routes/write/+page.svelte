@@ -63,7 +63,8 @@
   import { goto } from "$app/navigation";
   import Tiptap from "$lib/components/tiptap/tiptap.svelte";
   import Codemirror from "$lib/components/codemirror/codemirror.svelte";
-  //
+  import { testUser } from "$lib/testPostData";
+
   let content = ''
   let code = 'code test'
 
@@ -73,17 +74,23 @@
     const form = event.target as HTMLFormElement
     const data = new FormData(form)
 
+
     // 데이터 정제
-    const title = data.get('title')
+    const reqData: Api.PostPostsRequest = {
+      title: data.get('title') + "",
+      code: code,
+      content: content,
+      author: testUser
+    }
 
     // 데이터 묶어서 Json 화
-    const jsonData = JSON.stringify({ title, content, code })
+    const jsonData = JSON.stringify( reqData )
 
     console.log(jsonData)
 
     try {
       // 주소로 POST 요청 보내기
-      const res = await fetch('http://localhost:8080/posts', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

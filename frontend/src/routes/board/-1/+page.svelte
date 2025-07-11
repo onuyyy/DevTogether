@@ -21,7 +21,7 @@
           {/each}
         </tbody>
       </table>-->
-      <Codemirror code={data.post_code} readOnly={true} className="text-lg"/>
+      <Codemirror code={data.code} readOnly={true} className="text-lg"/>
     </div>
   </div>
 
@@ -30,20 +30,20 @@
     <div class="size-full bg-white rounded-2xl p-6">
       <!-- 게시글 부분 -->
       <div class="mb-4">
-        <h2 class="text-xl font-bold">{data.post_title}</h2>
-        <p class="text-sm text-gray-500">{data.post_uploader.user_name} | {data.post_createdDate}</p>
+        <h2 class="text-xl font-bold">{data.title}</h2>
+        <p class="text-sm text-gray-500">{data.author.username} | {data.createDate}</p>
       </div>
 
       <div class="mb-6">
-        <p class="tiptap">{@html data.post_content}</p>
+        <p class="tiptap">{@html data.content}</p>
       </div>
       <!-- 댓글 부분 -->
       <div class="border-t pt-4">
-        <h3 class="text-lg font-semibold mb-2">💬 댓글 {data.post_comments.length}개</h3>
+        <h3 class="text-lg font-semibold mb-2">💬 댓글 {data.commentCount}개</h3>
         <div class="space-y-4">
           <!-- 대댓글 구분은 ml-(x)에 따라서 구분 -->
           <!-- 아예 댓글 컴포넌트로 만들어서 관리 ㄱㄱ -->
-          {#each data.post_comments as comments}
+          {#each data.comments as comments}
             <CommonComment data={comments}/>
           {/each}
         </div>
@@ -60,7 +60,7 @@
 
   import CommonComment from '$lib/components/commonComment.svelte';
   import Codemirror from "$lib/components/codemirror/codemirror.svelte";
-  import { testPostData } from '$lib/testPostData';
+  import { GetPostsByPostIDExample } from '$lib/testPostData';
 
   import hljs from 'highlight.js';
   import java from 'highlight.js/lib/languages/java'
@@ -70,7 +70,7 @@
 
   hljs.registerLanguage('java', java)
 
-  const data: App.PostData = testPostData
+  const data: Api.GetPostsByPostId = GetPostsByPostIDExample
 
   onMount(() => {
     const blocks = document.querySelectorAll('code')

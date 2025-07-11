@@ -1,5 +1,13 @@
-export const testPostData: App.PostData = {
-  post_code:`public class Main {
+export const testUser: App.UserData = {
+  username: "테스트유저",
+  id: -1,
+  createDate: "0000.00.00T00:00:00",
+  uploadedPosts: [],
+  uploadedComments: []
+}
+
+const testPostData: App.PostData = {
+  code:`public class Main {
   public static void main(String[] args) {
     Scanner input = new Scanner(System.in);
     Deck d = new Deck();
@@ -34,18 +42,15 @@ export const testPostData: App.PostData = {
     }
   }
 }`,
-    post_createdDate: "0000.00.00/00:00",
+    createDate: "0000.00.00T00:00:00",
   
-    post_id: -1,
-    post_title: "테스트 페이지입니다.",
-    post_uploader: {
-      user_createDate: "0000.00.00/00:00",
-      user_id: 0,
-      user_name: "테스트 유저",
-      user_role: 7,
+    id: -1,
+    title: "테스트 페이지입니다.",
+    author: {
+      testUser
     },
-    post_comments: [],
-    post_content: `
+    comments: [],
+    content: `
     <p>포스트 내용이 들어갈 위치입니다.</p>
     <h1>제목도</h1>
     <h2>들어</h2>
@@ -66,4 +71,36 @@ export const testPostData: App.PostData = {
     System.out.println("Hello, World!!");
   }
 }</code></pre>`,
+}
+
+export const GetPostsExample: Api.GetPostsPosts = {
+  id: testPostData.id,
+  title: testPostData.title,
+  content: testPostData.content,
+  author: testUser,
+  createDate: testPostData.createDate,
+  commentCount: 0
+}
+
+export const GetPostsPageInfoExample: Api.GetPostsPageInfo = {
+  currentPage: 0,
+  totalPages: 0
+}
+
+export const GetPostResponseExample: Api.GetPostsResponse = {
+  posts: [
+    GetPostsExample
+  ],
+  pageInfo: GetPostsPageInfoExample
+}
+
+export const GetPostsByPostIDExample: Api.GetPostsByPostId = {
+  id: testPostData.id,
+  title: testPostData.title,
+  content: testPostData.content,
+  code: testPostData.code,
+  author: testUser,
+  createDate: testPostData.createDate,
+  commentCount: 0,
+  comments: []
 }
