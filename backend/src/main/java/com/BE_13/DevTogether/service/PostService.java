@@ -1,20 +1,12 @@
 package com.BE_13.DevTogether.service;
 
-import com.BE_13.DevTogether.dto.request.PostCreateRequest;
-import com.BE_13.DevTogether.dto.PostDetailResponse;
-import com.BE_13.DevTogether.dto.response.AuthorResponse;
-import com.BE_13.DevTogether.dto.response.PostSummaryResponse;
+import com.BE_13.DevTogether.dto.PostCreateRequest;
+import com.BE_13.DevTogether.dto.PostResponse;
 import com.BE_13.DevTogether.entity.posts.Post;
 import com.BE_13.DevTogether.entity.posts.PostRepository;
-import com.BE_13.DevTogether.entity.user.User;
-import com.BE_13.DevTogether.entity.user.UserRepository;
-import com.BE_13.DevTogether.mapper.PostMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,22 +14,27 @@ import org.springframework.stereotype.Service;
  *
  * @author chan
  */
-@RequiredArgsConstructor
 @Service
 public class PostService {
 
     private final PostRepository postsRepository;
-    private final UserRepository userRepository;
 
-    public Long createPost(PostCreateRequest request, Long userId) {
+    public PostService(PostRepository postsRepository) {
+        this.postsRepository = postsRepository;
+    }
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-
-        Post post = PostMapper.toEntity(request, user);
+    // TODO: Post.Builder를 어디에 작성하는게 좋을까? 서비스? 아니면 dto? 아니면 아에 빌드 하는 클래스?
+    // -> 팩토리 메서드 패턴을 사용해보자
+    public PostResponse createPost(PostCreateRequest request) {
+        Post post = Post.builder()
+                .title(request.getTitle())
+                .code(request.getCode())
+                .content(request.getContent())
+                .author(request.getAuthor())
+                .build();
 
         Post savedPost = postsRepository.save(post);
-        return savedPost.getId();
+        return new PostResponse(savedPost);
     }
 
     /**
@@ -49,14 +46,14 @@ public class PostService {
      * @return 게시글
      */
     // 게시글 전체 조회
-    public Page<PostSummaryResponse> findAll(int page, int limit) {
+    public Page<PostResponse> findAll(int page, int limit) {
 
         // 페이지에 표시할 데이터와 개수
         Pageable pageable = PageRequest.of(page - 1, limit); // 페이지는 0부터 시작
 
-        Page<Post> postPage = postsRepository.findAll(pageable);
-
-        return postPage.map(PostMapper::toSummaryResponse);
+        // DB에서 pageable 만큼 반복하여 DTO를 생성하여 반환한다.
+        return postsRepository.findAll(pageable)
+                .map(PostResponse::new);
     }
 
     /**
@@ -66,12 +63,12 @@ public class PostService {
      * @return postId 게시글
      */
     // 특정 게시글 조회
-    public PostDetailResponse findById(Long postId) {
+    public PostResponse findById(Long postId) {
 
         // 아이디 조회
         Post post = postsRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다 : " + postId));
 
-        return PostMapper.toDetailResponse(post);
+        return new PostResponse(post);
     }
 }
