@@ -19,14 +19,16 @@ declare global {
     }
 
     interface GetPostsByPostId {
-      id: number
-      title: string
-      content: string
-      code: string
-      author: Pick<App.UserData, "username" | "id">
-      createDate: string
-      commentCount: number
-      comments: App.CommentData[]
+      post: {
+        id: number
+        title: string
+        content: string
+        code: string
+        author: Pick<App.UserData, "username" | "id">
+        createDate: string
+        commentCount: number
+        comments: App.CommentData[]
+      }
     }
 
     interface PostPostsRequest {

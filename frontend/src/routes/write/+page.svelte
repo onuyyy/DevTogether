@@ -104,7 +104,7 @@
       } 
       else {
         const resId = await res.json().then(data => data.id)
-        goto(`/board/`+{resId})
+        goto(`/`)
       }
     } catch (err) {
       alert("작성 실패했습니다!")
