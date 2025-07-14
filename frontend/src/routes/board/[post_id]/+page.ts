@@ -5,7 +5,6 @@ export const load: PageLoad = async ({ params, fetch }) => {
     method: "GET"
   })
   const post = (await res.json()) as Api.GetPostsByPostId
-  console.log(post)
 
   return {
     post

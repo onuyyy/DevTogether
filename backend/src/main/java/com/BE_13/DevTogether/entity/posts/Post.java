@@ -22,6 +22,7 @@ import java.util.List;
  *
  * @author chan
  */
+@Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
@@ -48,6 +49,7 @@ public class Post {
     private String content; // 게시글 본문
 
     @OneToMany(mappedBy = "post")
+    @Builder.Default // 기본값으로 초기화하여 NPE 방지
     private List<Comment> comments = new ArrayList<>(); // 작성글
 
     //  private int commentCounter = 0; // 댓글 갯수 확인 필드

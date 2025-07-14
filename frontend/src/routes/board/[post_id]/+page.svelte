@@ -20,7 +20,7 @@
           {/each}
         </tbody>
       </table>-->
-      <Codemirror code={data.code} readOnly={true} className="text-lg"/>
+      <Codemirror code={post.code} readOnly={true} className="text-lg"/>
     </div>
   </div>
 
@@ -29,20 +29,20 @@
     <div class="size-full bg-white rounded-2xl p-6">
       <!-- 게시글 부분 -->
       <div class="mb-4">
-        <h2 class="text-xl font-bold">{data.title}</h2>
-        <p class="text-sm text-gray-500">{data.author.username} | {data.createDate}</p>
+        <h2 class="text-xl font-bold">{post.title}</h2>
+        <p class="text-sm text-gray-500">{post.author} | {post.createDate}</p>
       </div>
 
       <div class="mb-6">
-        <p class="tiptap">{@html data.content}</p>
+        <p class="tiptap">{@html post.content}</p>
       </div>
       <!-- 댓글 부분 -->
       <div class="border-t pt-4">
-        <h3 class="text-lg font-semibold mb-2">💬 댓글 {data.commentCount}개</h3>
+        <h3 class="text-lg font-semibold mb-2">💬 댓글 {post.commentCount}개</h3>
         <div class="space-y-4">
           <!-- 대댓글 구분은 ml-(x)에 따라서 구분 -->
           <!-- 아예 댓글 컴포넌트로 만들어서 관리 ㄱㄱ -->
-          {#each data.comments as comments}
+          {#each post.comments as comments}
             <CommonComment data={comments}/>
           {/each}
         </div>
@@ -74,4 +74,7 @@
   })
 
   export let data: Api.GetPostsByPostId
+  const post = data.post
+
+  console.log(post)
 </script>
