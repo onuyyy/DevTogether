@@ -1,7 +1,7 @@
 export const testUser: App.UserData = {
   username: "테스트유저",
   id: -1,
-  createDate: "0000.00.00T00:00:00",
+  createDate: "2000-01-01T01:01:01",
   uploadedPosts: [],
   uploadedComments: []
 }
@@ -95,12 +95,14 @@ export const GetPostResponseExample: Api.GetPostsResponse = {
 }
 
 export const GetPostsByPostIDExample: Api.GetPostsByPostId = {
-  id: testPostData.id,
-  title: testPostData.title,
-  content: testPostData.content,
-  code: testPostData.code,
-  author: testUser,
-  createDate: testPostData.createDate,
-  commentCount: 0,
-  comments: []
+  post: {
+    id: testPostData.id,
+    title: testPostData.title,
+    content: testPostData.content,
+    code: testPostData.code,
+    author: testUser,
+    createDate: testPostData.createDate,
+    commentCount: 0,
+    comments: []
+  }
 }
