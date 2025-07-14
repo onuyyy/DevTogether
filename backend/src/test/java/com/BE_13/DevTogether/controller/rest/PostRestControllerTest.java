@@ -50,11 +50,16 @@ class PostRestControllerTest {
     @Autowired
     private UserRepository userRepository;
 
+    private User testUser;
+
+    @BeforeEach
+    void setUp() {
+        testUser = userRepository.findByUsername("테스트유저").orElseThrow(() -> new IllegalArgumentException("테스트 유저가 존재하지 않습니다."));
+    }
+
     @DisplayName("새로운 게시글을 생성한다.")
     @Test
     void createPost() throws Exception {
-
-        User testUser = userRepository.findByUsername("테스트유저").orElseThrow(() -> new IllegalArgumentException("테스트 유저가 존재하지 않습니다."));
 
         //  given
         PostCreateRequest request = new PostCreateRequest(
@@ -83,8 +88,6 @@ class PostRestControllerTest {
     @Test
     void findAll() throws Exception {
 
-        User testUser = userRepository.findByUsername("테스트유저").orElseThrow(() -> new IllegalArgumentException("테스트 유저가 존재하지 않습니다."));
-
         // given
         for (int i = 0; i < 20; i++) {
             postRepository.save(Post.builder()
@@ -110,8 +113,6 @@ class PostRestControllerTest {
     @DisplayName("특정 ID의 게시글을 조회한다.")
     @Test
     void findById() throws Exception {
-
-        User testUser = userRepository.findByUsername("테스트유저").orElseThrow(() -> new IllegalArgumentException("테스트 유저가 존재하지 않습니다."));
 
         // given
         Post post = postRepository.save(Post.builder()
