@@ -1,6 +1,6 @@
 export const testUser: App.UserData = {
   username: "테스트유저",
-  id: -1,
+  id: 1,
   createDate: "2000-01-01T01:01:01",
   uploadedPosts: [],
   uploadedComments: []
