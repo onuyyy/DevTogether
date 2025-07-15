@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/DevTogether.iml" filepath="$PROJECT_DIR$/.idea/DevTogether.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.BE_13.DevTogether.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.BE_13.DevTogether.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DevTogether.iml" filepath="$PROJECT_DIR$/.idea/modules/DevTogether.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DevTogether.main.iml" filepath="$PROJECT_DIR$/.idea/modules/DevTogether.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DevTogether.test.iml" filepath="$PROJECT_DIR$/.idea/modules/DevTogether.test.iml" />
     </modules>
   </component>
 </project>
