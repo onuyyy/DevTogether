@@ -1,3 +1,5 @@
+<MainHeader />
+
 <!-- 검색 및 필터 -->
 <section class="flex justify-between items-center p-4 border-b">
   <form>
@@ -13,7 +15,7 @@
       <option>최신순</option>
       <option>조회순</option>
     </select>
-    <a href="/write" class="border-1 rounded ml-1 px-2 py-1.5 hover:bg-neutral-100 active:bg-neutral-200">
+    <a href="/board/write" class="border-1 rounded ml-1 px-2 py-1.5 hover:bg-neutral-100 active:bg-neutral-200">
       글 쓰기
     </a>
   </div>
@@ -46,6 +48,7 @@
 </footer>
 
 <script lang="ts">
+  import MainHeader from '$lib/components/mainHeader.svelte';
   import Postpreview from '$lib/components/postPreview.svelte'
   import { GetPostResponseExample } from '$lib/testPostData';
   import { onMount } from 'svelte';
