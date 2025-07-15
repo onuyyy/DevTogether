@@ -18,8 +18,8 @@ import java.util.Map;
 @RestController
 public class UserRestController {
 
-    private UserRepository userRepository;
-    private SignInService signInService;
+    private final UserRepository userRepository;
+    private final SignInService signInService;
     private final PasswordEncoder passwordEncoder;
     // todo : createUser 할 때 비밀번호 처리
 
