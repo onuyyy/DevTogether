@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
+
+@theme {
+  --color-onedark-black: #282c34;
+  --color-onedark-red: #e96c75;
+  --color-onedark-green: #98c379;
+  --color-onedark-yellow: #e5c07b;
+  --color-onedark-blue: #61afef;
+  --color-onedark-purple: #c678dd;
+  --color-onedark-cyan: #56b6c2;
+  --color-onedark-gray: #abb2bf;
+}

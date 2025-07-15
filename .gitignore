@@ -1,6 +1,7 @@
 # custom
 .idea
 .DS_Store
+**/logs
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,gradle,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij,gradle,java
