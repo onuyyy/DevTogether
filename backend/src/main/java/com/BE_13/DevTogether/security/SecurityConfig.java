@@ -49,12 +49,14 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/posts").permitAll()
-                        .requestMatchers("/api/users").hasRole("ADMIN")
+                        .requestMatchers("/api/user").permitAll()
+                        .requestMatchers("/api/test").hasRole("ADMIN")
                         .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .formLogin(login -> login
-                        .loginProcessingUrl("/login")
+                        .loginPage("/api/user/login") // 로그인 페이지
+                        .loginProcessingUrl("/api/user/login-submit") // 로그인 요청 처리 URL
                         //.failureUrl("login?error=true") 로그인 실패시 url 설정
                         .failureHandler(userAuthenticationFailureHandler())
                         .defaultSuccessUrl("/api/posts", true)
