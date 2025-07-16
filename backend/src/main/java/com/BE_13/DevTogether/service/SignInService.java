@@ -17,9 +17,9 @@ public class SignInService {
     public User signIn(SignIn signIn) {
 
         User user = userRepository.findByUsername(signIn.username())
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
 
-        if (BCrypt.checkpw(signIn.password(), user.getPassword())) {
+        if (!BCrypt.checkpw(signIn.password(), user.getPassword())) {
             throw new RuntimeException("비밀번호가 잘못되었습니다.");
         }
 

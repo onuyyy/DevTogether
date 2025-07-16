@@ -6,6 +6,7 @@ import com.BE_13.DevTogether.entity.user.User;
 import com.BE_13.DevTogether.entity.user.UserRepository;
 import com.BE_13.DevTogether.service.SignInService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,7 +48,7 @@ public class UserRestController {
 
     @Tag(name = "User Login", description = "로그인시 username, password를 받습니다.")
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody SignIn form) {
+    public ResponseEntity<User> login(@Valid @RequestBody SignIn form) {
 
         User user = signInService.signIn(form);
 
