@@ -48,19 +48,20 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/posts").permitAll()
+                        .requestMatchers("/api/posts", "/api/posts/**").permitAll()
                         .requestMatchers("/api/user").permitAll()
                         .requestMatchers("/api/test").hasRole("ADMIN")
                         .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().permitAll()
                 )
-                .formLogin(login -> login
-                        .loginPage("/api/user/login") // 로그인 페이지
-                        .loginProcessingUrl("/api/user/login-submit") // 로그인 요청 처리 URL
-                        //.failureUrl("login?error=true") 로그인 실패시 url 설정
-                        .failureHandler(userAuthenticationFailureHandler())
-                        .defaultSuccessUrl("/api/posts", true)
-                )
+//                 추후 토큰 도입 시 고도화를 위하여 컨트롤러단에서 로그인 조정하겠음
+//                .formLogin(login -> login
+//                        .loginPage("/api/user/login") // 로그인 페이지
+//                        .loginProcessingUrl("/api/user/login-submit") // 로그인 요청 처리 URL
+//                        //.failureUrl("login?error=true") 로그인 실패시 url 설정
+//                        .failureHandler(userAuthenticationFailureHandler())
+//                        .defaultSuccessUrl("/api/posts", true)
+//                )
                 .logout(logout -> logout
                         .logoutSuccessUrl("/api/posts")
                 );

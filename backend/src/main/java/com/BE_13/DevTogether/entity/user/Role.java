@@ -7,7 +7,7 @@ package com.BE_13.DevTogether.entity.user;
  */
 public enum Role {
 
-    User("USER", "일반사용자"),
+    USER("USER", "일반사용자"),
 
     ADMIN("ADMIN", "관리자");
 

@@ -38,7 +38,7 @@ public class TestDataInit {
                 // 일반 테스트 유저 db 생성
                 User testUser = User.builder().
                         username("테스트유저").
-                        role(Role.User).
+                        role(Role.USER).
                         build();
 
                 userRepository.save(testUser);
