@@ -11,6 +11,6 @@
 </script>
 
 <div class={`bg-blue-100 p-3 rounded`}>
-  <p class="text-sm font-semibold">({data.comment_uploader.user_name}) · ({data.comment_createdDate})</p>
-  <p class="text-sm">{data.comment_content}</p>
+  <p class="text-sm font-semibold">({data.author.username}) · ({data.createDate})</p>
+  <p class="text-sm">{data.content}</p>
 </div>

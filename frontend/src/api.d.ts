@@ -41,6 +41,13 @@ declare global {
     interface PostPostsResponse {
       id: number
     }
+
+    interface PostLoginRequest {
+      username: string
+      password: string
+    }
+
+    interface PostSignupRequest extends PostLoginRequest{ }
   }
 }
 

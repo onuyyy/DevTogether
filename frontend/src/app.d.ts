@@ -14,13 +14,16 @@ declare global {
 		interface UserData {
 			username: string
 			id: number
+		}
+
+		interface FullUserData extends UserData {
 			createDate: string
 			uploadedPosts: PostData[]
 			uploadedComments: CommentData[]
 		}
 
 		interface CommentData {
-			author: Pick<UserData, "name" & "id">
+			author: UserData
 			postId: number
 			id: number
 			createDate: Date
@@ -29,7 +32,7 @@ declare global {
 		}
 		
 		interface PostData {
-			author: Pick<UserData, "name" & "id">
+			author: UserData
 			id: number
 			createDate: string
 			title: string
