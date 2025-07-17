@@ -39,7 +39,7 @@ public class UserRestController {
         User newUser = User.builder().
                 username(request.get("username")).
                 password(encodedPassword).
-                role(Role.valueOf(request.get("role"))).
+                role(Role.USER). // # todo : 현재는 USER밖에 없어서 추후 관리자 기능 개발 시 적용
                 build();
 
         User saveUser = userRepository.save(newUser);
