@@ -3,6 +3,57 @@ export const testUser: App.UserData = {
   id: 1
 }
 
+const testCommentData: App.CommentData[] = [
+  {
+    author: testUser,
+    postId: -1,
+    id: 1,
+    createDate: new Date("2022-02-22T22:22:22"),
+    content: "이것은 댓글 입니다.",
+    parent: -1
+  },
+  {
+    author: testUser,
+    postId: -1,
+    id: 2,
+    createDate: new Date("2022-02-22T22:22:22"),
+    content: "이것은 대댓글 입니다.",
+    parent: 1
+  },
+  {
+    author: testUser,
+    postId: -1,
+    id: 3,
+    createDate: new Date("2022-02-22T22:22:22"),
+    content: "이것은 대대댓글 입니다.",
+    parent: 2
+  },
+  {
+    author: testUser,
+    postId: -1,
+    id: 4,
+    createDate: new Date("2022-02-22T22:22:22"),
+    content: "이것은 또다른 댓글 입니다.",
+    parent: -1
+  },
+  {
+    author: testUser,
+    postId: -1,
+    id: 5,
+    createDate: new Date("2022-02-22T22:22:22"),
+    content: "이것은 대대대댓글 입니다.",
+    parent: 3
+  },
+  {
+    author: testUser,
+    postId: -1,
+    id: 6,
+    createDate: new Date("2022-02-22T22:22:22"),
+    content: "이것은 또다른 댓글의 대댓글 입니다.",
+    parent: 4
+  },
+]
+
 const testPostData: App.PostData = {
   code:`public class Main {
   public static void main(String[] args) {
@@ -44,7 +95,7 @@ const testPostData: App.PostData = {
     id: -1,
     title: "테스트 페이지입니다.",
     author: testUser,
-    comments: [],
+    comments: testCommentData,
     content: `
     <p>포스트 내용이 들어갈 위치입니다.</p>
     <h1>제목도</h1>
@@ -98,6 +149,6 @@ export const GetPostsByPostIDExample: Api.GetPostsByPostId = {
     author: testUser,
     createDate: testPostData.createDate,
     commentCount: 0,
-    comments: []
+    comments: testPostData.comments
   }
 }
