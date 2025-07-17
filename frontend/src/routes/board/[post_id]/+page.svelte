@@ -1,4 +1,3 @@
-<!-- src/routes/+page.svelte -->
 <div class="flex h-screen">
   <!-- 왼쪽: 코드 블록 -->
   <div class="w-1/2 bg-onedark-black">
@@ -25,7 +24,7 @@
   </div>
 
   <!-- 오른쪽: 글 + 댓글 -->
-  <div class="w-1/2 bg-neutral-200 p-3 overflow-auto">
+  <div class="w-1/2 bg-neutral-200 p-3 overflow-auto h-fit">
     <div class="size-full bg-white rounded-2xl p-6">
       <!-- 게시글 부분 -->
       <div class="mb-4">
@@ -40,10 +39,7 @@
       <div class="border-t pt-4">
         <h3 class="text-lg font-semibold mb-2">💬 댓글 {post.comments.length}개</h3>
         <div class="space-y-4">
-          <!-- 대댓글 구분은 ml-(x)에 따라서 구분 -->
-          {#each post.comments as comments}
-            <CommonComment data={comments}/>
-          {/each}
+          <CommentRenderer comments={post.comments} />
           <form on:submit|preventDefault={handleSubmit}>
             <div class="w-full py-2">
               <textarea
@@ -65,7 +61,7 @@
 </script>
 
 <script lang="ts">
-  import CommonComment from '$lib/components/commonComment.svelte';
+  import CommentRenderer from '$lib/components/CommentRenderer.svelte';
   import Codemirror from '$lib/components/codemirror/codemirror.svelte';
 
   import hljs from 'highlight.js';
@@ -90,5 +86,5 @@
 
   const handleSubmit = () => {
 
-  } 
+  }
 </script>
