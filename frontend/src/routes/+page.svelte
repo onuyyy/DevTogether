@@ -23,14 +23,13 @@
 
 <!-- 게시글 리스트 -->
 <main class="p-4 space-y-3">
-  <!-- {#if posts.length == 0}
-    <Postpreview data={GetPostResponseExample.posts.at(0)} />
+  {#if posts.length == 0}
     <div class="text-neutral-500 my-10 flex flex-col place-items-center">
       <p class="m-1">게시글이 비었습니다...</p>
-      <p class="m-1">나중에 다시 방문하시거나..</p>
-      <p class="m-1">새로운 코드를 공유해주세요!</p>
+      <p class="m-1">아니면 서버와 연결이 끊어졌거나요...</p>
+      <p class="m-1">(슬픈 사진)</p>
     </div>
-  {/if} -->
+  {/if}
   {#each posts as post}
     <Postpreview data={post}/>
   {/each}
