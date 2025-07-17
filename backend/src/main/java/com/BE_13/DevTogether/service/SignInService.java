@@ -7,6 +7,7 @@ import com.BE_13.DevTogether.exception.ErrorCode;
 import com.BE_13.DevTogether.exception.UserException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -14,13 +15,14 @@ import org.springframework.stereotype.Service;
 public class SignInService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public User signIn(SignIn signIn) {
 
         User user = userRepository.findByUsername(signIn.username())
                 .orElseThrow(() -> new UserException(ErrorCode.USER_NOT_FOUND));
 
-        if (!BCrypt.checkpw(signIn.password(), user.getPassword())) {
+        if (!passwordEncoder.matches(signIn.password(), user.getPassword())) {
             throw new UserException(ErrorCode.WRONG_PASSWORD);
         }
 
