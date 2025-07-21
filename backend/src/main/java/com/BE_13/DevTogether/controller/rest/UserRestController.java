@@ -3,7 +3,6 @@ package com.BE_13.DevTogether.controller.rest;
 import com.BE_13.DevTogether.dto.request.SignIn;
 import com.BE_13.DevTogether.dto.request.SignUp;
 import com.BE_13.DevTogether.entity.user.User;
-import com.BE_13.DevTogether.entity.user.UserRepository;
 import com.BE_13.DevTogether.service.SignInService;
 import com.BE_13.DevTogether.service.SignUpService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 public class UserRestController {
-    
+
     private final SignInService signInService;
     private final SignUpService signUpService;
 
