@@ -19,8 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 public class UserRestController {
-
-    private final UserRepository userRepository;
+    
     private final SignInService signInService;
     private final SignUpService signUpService;
 
