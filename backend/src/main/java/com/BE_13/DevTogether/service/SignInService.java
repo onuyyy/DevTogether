@@ -6,7 +6,6 @@ import com.BE_13.DevTogether.entity.user.UserRepository;
 import com.BE_13.DevTogether.exception.ErrorCode;
 import com.BE_13.DevTogether.exception.UserException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
