@@ -63,6 +63,7 @@
   import { goto } from "$app/navigation";
   import Tiptap from "$lib/components/tiptap/tiptap.svelte";
   import Codemirror from "$lib/components/codemirror/codemirror.svelte";
+  import { getUser } from "../../../stores/user.svelte";
   import { testUser } from "$lib/testPostData";
 
   let content = ''
@@ -76,11 +77,13 @@
 
 
     // 데이터 정제
+    const user = getUser()
+
     const reqData: Api.PostPostsRequest = {
       title: data.get('title') + "",
       code: code,
       content: content,
-      author: testUser
+      author: user ? user : testUser
     }
 
     // 데이터 묶어서 Json 화

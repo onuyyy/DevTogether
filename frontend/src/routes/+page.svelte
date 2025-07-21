@@ -49,7 +49,6 @@
 <script lang="ts">
   import MainHeader from '$lib/components/mainHeader.svelte';
   import Postpreview from '$lib/components/postPreview.svelte'
-  import { GetPostResponseExample } from '$lib/testPostData';
   import { onMount } from 'svelte';
 
   let response: Api.GetPostsResponse

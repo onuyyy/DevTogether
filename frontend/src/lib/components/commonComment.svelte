@@ -8,7 +8,7 @@
   export let depth = 0
   const maxDepth = 3
   const marginClasses = ['ml-4', 'ml-8', 'ml-12', 'ml-16', 'ml-20', 'ml-24']
-  const bgClasses = ['bg-blue-100', 'bg-blue-200', 'bg-blue-300', 'bg-blue-400', 'bg-blue-500', 'bg-blue-600']
+  const bgClasses = ['bg-blue-100', 'bg-blue-200', 'bg-blue-300', 'bg-blue-400 text-white', 'bg-blue-500', 'bg-blue-600']
 
   let addition = 'bg-blue-100'
   if(depth > 0) {
@@ -25,6 +25,9 @@
 </script>
 
 <div class={`p-3 rounded-lg ` + addition}>
-  <p class="text-sm font-semibold">{data.author.username} · {prettyDate}</p>
+  <div class="flex justify-between">
+    <p class="text-sm font-semibold">{data.author.username} · {prettyDate}</p>
+    <button class="cursor-pointer underline">답글</button>
+  </div>
   <p class="text-sm">{data.content}</p>
 </div>
