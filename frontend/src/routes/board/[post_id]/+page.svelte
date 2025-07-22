@@ -30,15 +30,7 @@
         <div class="space-y-4">
           <CommentRenderer comments={post.comments} />
           <form on:submit|preventDefault={handleSubmit}>
-            <div class="w-full py-2">
-              <textarea
-                class="w-full h-16 bg-white rounded-xl p-2 border"
-                placeholder="댓글을 입력하세요.."
-              ></textarea>
-              <div class="flex justify-end">
-                <button class="px-6 py-1 text-white bg-sky-300 rounded-xl hover:bg-sky-400 hover:scale-[105%] active:bg-sky-500 active:scale-[97%]">작성</button>
-              </div>
-            </div>
+            <CommentWriter postId={data.post.id} />
           </form>
         </div>
       </div>
@@ -59,6 +51,7 @@
   import '$lib/components/tiptap/tiptap.css'
 
   import { onMount } from 'svelte'
+    import CommentWriter from '$lib/components/CommentWriter.svelte';
 
   hljs.registerLanguage('java', java)
 
@@ -70,7 +63,8 @@
   })
 
   export let data: Api.GetPostsByPostId
-  const post = data.post
+  let post = data.post
+  $: post = data.post
 
   console.log(post)
 

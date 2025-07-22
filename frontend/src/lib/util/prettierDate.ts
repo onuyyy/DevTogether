@@ -1,5 +1,7 @@
 export const prettierDate = (date: Date): string => {
   const CurrDate = Date.now()
+  if(date === null)
+    return "null"
   if (CurrDate - date.getTime() > 24*60*60*1000) {
     const y = date.getFullYear()
     const m = date.getMonth()

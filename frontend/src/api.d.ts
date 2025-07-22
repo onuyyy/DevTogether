@@ -48,6 +48,13 @@ declare global {
     }
 
     interface PostSignupRequest extends PostLoginRequest{ }
+
+    interface PostCommentRequest {
+      author: Pick<App.UserData, "username" | 'id'>
+      content: string
+      parent: number
+    }
+
   }
 }
 

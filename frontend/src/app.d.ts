@@ -27,7 +27,7 @@ declare global {
 			postId: number
 			id: number
 			createDate: Date
-			content: string
+			comment: string
 			parent: number
 		}
 		
