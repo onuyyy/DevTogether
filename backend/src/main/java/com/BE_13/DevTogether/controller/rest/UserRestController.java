@@ -1,7 +1,8 @@
 package com.BE_13.DevTogether.controller.rest;
 
-import com.BE_13.DevTogether.dto.request.SignIn;
-import com.BE_13.DevTogether.dto.request.SignUp;
+import com.BE_13.DevTogether.dto.request.SignInRequest;
+import com.BE_13.DevTogether.dto.request.SignUpRequest;
+import com.BE_13.DevTogether.dto.response.SignInResponse;
 import com.BE_13.DevTogether.entity.user.User;
 import com.BE_13.DevTogether.service.SignInService;
 import com.BE_13.DevTogether.service.SignUpService;
@@ -25,30 +26,28 @@ public class UserRestController {
     /**
      * 유저 생성 API
      *
-     * @param signUp <String username, String role>
+     * @param signUpRequest <String username, String role>
      * @return 생성된 임의의 유저
      * @author chan
      */
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody SignUp signUp) {
+    public ResponseEntity<String> createUser(@RequestBody SignUpRequest signUpRequest) {
 
-        User user = signUpService.signUp(signUp);
+        User user = signUpService.signUp(signUpRequest);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok("회원가입 완료");
     }
 
     /**
      * 로그인 API
-     * @param signIn
+     * @param signInRequest
      * @return
      */
     @Tag(name = "User Login", description = "로그인시 username, password를 받습니다.")
     @PostMapping("/login")
-    public ResponseEntity<User> login(@Valid @RequestBody SignIn signIn) {
+    public ResponseEntity<SignInResponse> login(@Valid @RequestBody SignInRequest signInRequest) {
 
         // todo : 현재는 세션, 토큰, 쿠키 사용을 하지 않음 토큰 도입 예정
-        User user = signInService.signIn(signIn);
-
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(signInService.signIn(signInRequest));
     }
 }
