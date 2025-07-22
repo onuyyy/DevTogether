@@ -41,6 +41,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role; // 유저 권한
 
+    private Long loginFailCount;
+
     @OneToMany(mappedBy = "author")
     private List<Post> uploadedPosts = new ArrayList<>(); // 유저가 작성한 포스트 리스트
 
