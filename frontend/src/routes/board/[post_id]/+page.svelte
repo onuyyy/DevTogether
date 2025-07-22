@@ -56,6 +56,7 @@
   import hljs from 'highlight.js';
   import java from 'highlight.js/lib/languages/java'
   import 'highlight.js/styles/github-dark.css'
+  import '$lib/components/tiptap/tiptap.css'
 
   import { onMount } from 'svelte'
 
