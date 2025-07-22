@@ -1,6 +1,6 @@
 package com.BE_13.DevTogether.service;
 
-import com.BE_13.DevTogether.dto.request.SignUp;
+import com.BE_13.DevTogether.dto.request.SignUpRequest;
 import com.BE_13.DevTogether.entity.user.Role;
 import com.BE_13.DevTogether.entity.user.User;
 import com.BE_13.DevTogether.entity.user.UserRepository;
@@ -17,14 +17,14 @@ public class SignUpService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public User signUp(SignUp signUp) {
+    public User signUp(SignUpRequest signUpRequest) {
 
-        userRepository.findByUsername(signUp.username()).
+        userRepository.findByUsername(signUpRequest.username()).
                 orElseThrow(() -> new UserException(ErrorCode.ALREADY_REGISTER_USER));
 
-        String encodedPassword = passwordEncoder.encode(signUp.password());
+        String encodedPassword = passwordEncoder.encode(signUpRequest.password());
         User newUser = User.builder().
-                username(signUp.username()).
+                username(signUpRequest.username()).
                 password(encodedPassword).
                 role(Role.USER). // # todo : 현재는 USER밖에 없어서 추후 관리자 기능 개발 시 적용
                 build();
