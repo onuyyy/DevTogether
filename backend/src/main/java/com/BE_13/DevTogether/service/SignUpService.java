@@ -19,8 +19,10 @@ public class SignUpService {
 
     public User signUp(SignUpRequest signUpRequest) {
 
-        userRepository.findByUsername(signUpRequest.username()).
-                ifPresent(u -> new UserException(ErrorCode.ALREADY_REGISTER_USER));
+        userRepository.findByUsername(signUpRequest.username())
+                .ifPresent(u -> {
+                    throw new UserException(ErrorCode.ALREADY_REGISTER_USER);
+                });
 
         String encodedPassword = passwordEncoder.encode(signUpRequest.password());
         User newUser = User.builder().
