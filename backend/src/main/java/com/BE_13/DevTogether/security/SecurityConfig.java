@@ -2,6 +2,7 @@ package com.BE_13.DevTogether.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -51,7 +52,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/posts", "/api/posts/**").permitAll()
                         .requestMatchers("/api/user").permitAll()
                         .requestMatchers("/api/test").hasRole("ADMIN")
-                        .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().permitAll()
                 )
 //                 추후 토큰 도입 시 고도화를 위하여 컨트롤러단에서 로그인 조정하겠음
@@ -70,7 +70,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public WebSecurityCustomizer hstsCustomizer() {
+    @Profile({"test", "dev"})
+    public WebSecurityCustomizer h2ConsoleCustomizer() {
         return web -> web.ignoring().requestMatchers("/h2-console/**");
     }
 }
