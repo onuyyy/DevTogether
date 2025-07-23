@@ -38,6 +38,32 @@
       return
     }
 
+    // 회원 가입 로직
+    // 입시로 작성된 구역입니다.
+    const regexId = /^[a-zA-Z0-9_]+$/
+    const regexPw = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/;
+    if (username.length < 4 || username.length > 20) {
+      alert("아이디는 4자 이상, 20자 이하여야 합니다.")
+      return
+    }
+
+    if (!regexId.test(username)) {
+      alert("아이디는 영문, 숫자, 언더스코어만 사용 가능합니다.")
+      return
+    }
+
+    if (pw.length < 8 || pw.length > 50) {
+      alert("비밀번호는 8자 이상, 50자 이하여야 합니다.")
+      return
+    }
+
+    if (!regexPw.test(pw)) {
+      alert("비밀번호는 대소문자, 숫자, 특수문자를 각각 하나 이상 포함해야 합니다.")
+      return
+    }
+    // 여기까지 지워야 함
+    
+    // 데이터 정제
     const reqData: Api.PostSignupRequest = {
       username: username,
       password: pw
