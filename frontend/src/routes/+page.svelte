@@ -40,9 +40,11 @@
 <!-- PageInfo 형태로 줘야하려나 -->
 <footer class="flex justify-center items-center gap-2 py-4">
   {#if posts.length > 0}
-    <button class="px-3 py-1 border rounded hover:bg-gray-100">이전</button>
-    <button class="px-3 py-1 border rounded hover:bg-gray-100">1</button>
-    <button class="px-3 py-1 border rounded hover:bg-gray-100">다음</button>
+    <button on:click={async ()=>{ movePage(page-1) }} class="px-3 py-1 border rounded hover:bg-gray-100 cursor-pointer">이전</button>
+    {#each { length: pageInfo.totalPage }, pages}
+      <button on:click={async ()=>{ movePage(pages+1) }} class="px-3 py-1 border rounded hover:bg-gray-100 cursor-pointer">{pages+1}</button>
+    {/each}
+    <button on:click={async ()=>{ movePage(page+1) }} class="px-3 py-1 border rounded hover:bg-gray-100 cursor-pointer">다음</button>
   {/if}
 </footer>
 
@@ -50,15 +52,21 @@
   import MainHeader from '$lib/components/mainHeader.svelte';
   import Postpreview from '$lib/components/postPreview.svelte'
   import { onMount } from 'svelte';
+  let page: number = 1
 
   let response: Api.GetPostsResponse
+  let pageInfo: Api.GetPostsPageInfo
   let posts: Api.GetPostsPosts[] = []
 
-  onMount ( async () => {
+  onMount (() => {
+    loadPosts()
+  })
+
+  const loadPosts = async () => {
     try {
       // 쿼리 문 추가히기
       // page=${페이지}&limit=${리미트} 형태 문자열 추가하기
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts?`, {
+      const res = await fetch(`/api/posts?page=`+page, {
         method: 'GET'
       })
       // 응답 체크
@@ -67,10 +75,17 @@
       const datas = await res.json()
       console.log(datas)
       response = datas
+      pageInfo = response.pageInfo
       posts = Array.isArray(response.posts) ? response.posts : []
     } catch (err) {
       console.log(err)
     }
-  })
+  }
 
+  const movePage = (pageNum: number) => {
+    page = pageNum
+    if(page <= 0) page = 1
+    if(page >= pageInfo.totalPage) page = pageInfo.totalPage
+    loadPosts()
+  }
 </script>

@@ -10,7 +10,7 @@ declare global {
     }
     interface GetPostsPageInfo {
       currentPage: number
-      totalPages: number
+      totalPage: number
     }
 
     interface GetPostsResponse {
