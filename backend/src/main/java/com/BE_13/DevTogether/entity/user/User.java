@@ -2,6 +2,7 @@ package com.BE_13.DevTogether.entity.user;
 
 import com.BE_13.DevTogether.entity.comment.Comment;
 import com.BE_13.DevTogether.entity.posts.Post;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -50,6 +51,7 @@ public class User implements UserDetails {
     private List<Comment> uploadedComment = new ArrayList<>(); // 유저가 작성한 댓글 리스트
 
     @CreatedDate
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createDate; // 생성일자
 
     @Builder

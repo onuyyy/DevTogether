@@ -4,6 +4,7 @@ import com.BE_13.DevTogether.entity.board.Board;
 import com.BE_13.DevTogether.entity.comment.Comment;
 import com.BE_13.DevTogether.entity.user.Role;
 import com.BE_13.DevTogether.entity.user.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,6 +15,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +59,6 @@ public class Post {
     private Role reqRole; // requireRole 요구 권한
 
     private String header; // 말머리
-
 
     @CreatedDate
     private LocalDateTime createDate; // 생성일
