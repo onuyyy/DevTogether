@@ -10,7 +10,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -57,7 +56,6 @@ public class Post {
     private Role reqRole; // requireRole 요구 권한
 
     private String header; // 말머리
-
 
     @CreatedDate
     private LocalDateTime createDate; // 생성일
