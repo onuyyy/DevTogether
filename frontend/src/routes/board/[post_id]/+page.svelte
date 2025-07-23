@@ -18,7 +18,7 @@
       <!-- 게시글 부분 -->
       <div class="mb-4">
         <h2 class="text-xl font-bold">{post.title}</h2>
-        <p class="text-sm text-gray-500">{post.author.username} | {post.createDate}</p>
+        <p class="text-sm text-gray-500">{post.author.username} | {prettydate}</p>
       </div>
 
       <div class="mb-6">
@@ -29,9 +29,7 @@
         <h3 class="text-lg font-semibold mb-2">💬 댓글 {post.comments.length}개</h3>
         <div class="space-y-4">
           <CommentRenderer comments={post.comments} />
-          <form on:submit|preventDefault={handleSubmit}>
-            <CommentWriter postId={data.post.id} />
-          </form>
+          <CommentWriter postId={data.post.id} />
         </div>
       </div>
     </div>
@@ -52,6 +50,7 @@
 
   import { onMount } from 'svelte'
     import CommentWriter from '$lib/components/CommentWriter.svelte';
+    import { prettierDate } from '$lib/util/prettierDate';
 
   hljs.registerLanguage('java', java)
 
@@ -68,9 +67,7 @@
 
   console.log(post)
 
-  const handleSubmit = () => {
-
-  }
+  const prettydate = prettierDate(new Date(data.post.createDate))
 
   const copyCode = async () => {
     try {
