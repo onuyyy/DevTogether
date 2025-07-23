@@ -93,7 +93,7 @@
 
     try {
       // 주소로 POST 요청 보내기
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts`, {
+      const res = await fetch(`/api/posts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
