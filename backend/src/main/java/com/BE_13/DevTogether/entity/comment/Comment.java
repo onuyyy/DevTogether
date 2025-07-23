@@ -2,7 +2,6 @@ package com.BE_13.DevTogether.entity.comment;
 
 import com.BE_13.DevTogether.entity.posts.Post;
 import com.BE_13.DevTogether.entity.user.User;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
