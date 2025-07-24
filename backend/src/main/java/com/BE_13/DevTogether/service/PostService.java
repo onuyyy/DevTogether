@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -52,7 +53,7 @@ public class PostService {
     public Page<PostSummaryResponse> findAll(int page, int limit) {
 
         // 페이지에 표시할 데이터와 개수
-        Pageable pageable = PageRequest.of(page - 1, limit); // 페이지는 0부터 시작
+        Pageable pageable = PageRequest.of(page - 1, limit, Sort.by(Sort.Direction.DESC, "id")); // 페이지는 0부터 시작
 
         Page<Post> postPage = postsRepository.findAll(pageable);
 
