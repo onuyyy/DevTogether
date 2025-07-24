@@ -4,24 +4,24 @@
   </a>
   <!-- 이거 이미 로그인 되어있으면 어떻게 바뀌어야할까? -->
   <!-- 그냥 유저 이름으로 변경되고 누르면 마이페이지 띄우기?-->
-  {#if getUser() === null}
+  {#if currentUser.id === -1}
     <a href="/u/login">
       로그인
     </a>
   {/if}
-  {#if getUser() !== null}
+  {#if currentUser.id !== -1}
     <CommonModal showModal={showModal} on:click={toggleModal}>
       <button class="px-10 py-4 cursor-pointer" type="button" on:click={logout}>로그아웃</button>
     </CommonModal>
     <button class="cursor-pointer" type="button" on:click={toggleModal}>
-      {getUser()?.username}
+      {user.username}
     </button>
   {/if}
 </header>
 
 <script lang='ts'>
-  import { goto } from "$app/navigation";
-  import { getUser, clearUser } from "../../stores/user.svelte";
+  import { goto, invalidate, invalidateAll } from "$app/navigation";
+  import { clearUser, user } from "../../stores/user.svelte";
   import CommonModal from "./CommonModal.svelte";
   
   let showModal = false;
@@ -29,8 +29,12 @@
     showModal = !showModal
   }
 
-  const logout = () => {
+  const logout = async () => {
     clearUser()
+    toggleModal()
+    await invalidateAll()
     goto('/')
   }
+
+  const currentUser = user
 </script>

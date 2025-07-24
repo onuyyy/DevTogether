@@ -14,7 +14,7 @@
 
 <script lang="ts">
   import { testUser } from "$lib/testPostData";
-  import { getUser } from "../../stores/user.svelte";
+  import { user } from "../../stores/user.svelte";
   import { invalidateAll } from "$app/navigation";
 
   export let postId: number
@@ -24,11 +24,11 @@
     const form = event.target as HTMLFormElement
     const data = new FormData(form)
 
-    const user = getUser()
+    const currentUser = user
     const message = data.get('comment') as string
 
     const reqData: Api.PostCommentRequest = {
-      author: user ? user : testUser,
+      author: currentUser ? currentUser : testUser,
       content: message,
       parent: parent
     }

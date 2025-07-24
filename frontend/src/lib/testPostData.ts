@@ -9,7 +9,7 @@ const testCommentData: App.CommentData[] = [
     postId: -1,
     id: 1,
     createDate: new Date("2022-02-22T22:22:22"),
-    content: "이것은 댓글 입니다.",
+    comment: "이것은 댓글 입니다.",
     parent: -1
   },
   {
@@ -17,7 +17,7 @@ const testCommentData: App.CommentData[] = [
     postId: -1,
     id: 2,
     createDate: new Date("2022-02-22T22:22:22"),
-    content: "이것은 대댓글 입니다.",
+    comment: "이것은 대댓글 입니다.",
     parent: 1
   },
   {
@@ -25,7 +25,7 @@ const testCommentData: App.CommentData[] = [
     postId: -1,
     id: 3,
     createDate: new Date("2022-02-22T22:22:22"),
-    content: "이것은 대대댓글 입니다.",
+    comment: "이것은 대대댓글 입니다.",
     parent: 2
   },
   {
@@ -33,7 +33,7 @@ const testCommentData: App.CommentData[] = [
     postId: -1,
     id: 4,
     createDate: new Date("2022-02-22T22:22:22"),
-    content: "이것은 또다른 댓글 입니다.",
+    comment: "이것은 또다른 댓글 입니다.",
     parent: -1
   },
   {
@@ -41,7 +41,7 @@ const testCommentData: App.CommentData[] = [
     postId: -1,
     id: 5,
     createDate: new Date("2022-02-22T22:22:22"),
-    content: "이것은 대대대댓글 입니다.",
+    comment: "이것은 대대대댓글 입니다.",
     parent: 3
   },
   {
@@ -49,7 +49,7 @@ const testCommentData: App.CommentData[] = [
     postId: -1,
     id: 6,
     createDate: new Date("2022-02-22T22:22:22"),
-    content: "이것은 또다른 댓글의 대댓글 입니다.",
+    comment: "이것은 또다른 댓글의 대댓글 입니다.",
     parent: 4
   },
 ]
@@ -130,7 +130,7 @@ export const GetPostsExample: Api.GetPostsPosts = {
 
 export const GetPostsPageInfoExample: Api.GetPostsPageInfo = {
   currentPage: 0,
-  totalPages: 0
+  totalPage: 0
 }
 
 export const GetPostResponseExample: Api.GetPostsResponse = {
