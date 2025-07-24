@@ -1,8 +1,11 @@
 import { goto } from "$app/navigation"
 
-let userInfo: App.UserData | null = $state(null)
+export const user = $state<App.UserData>({
+  username: '',
+  id: -1
+})
 
-export const getUser = () => userInfo
+export const isUser = () => { return user.id !== -1 ? true : false}
 
 export const setUser = async (reqData: Api.PostLoginRequest) => {
   if (reqData.username == 'null' || reqData.password == 'null'
@@ -39,13 +42,11 @@ export const setUser = async (reqData: Api.PostLoginRequest) => {
     }
     alert("로그인 성공!")
 
-    const userData = await res.json()
+    const userData = await res.json() as App.UserData
     console.log(userData)
 
-    userInfo = {
-      id: userData.id,
-      username: userData.username
-    }
+    user.id = userData.id
+    user.username = userData.username
 
     goto('/')
   } catch (err) {
@@ -55,5 +56,6 @@ export const setUser = async (reqData: Api.PostLoginRequest) => {
 }
 
 export const clearUser = () => {
-  userInfo = null
+  user.id = -1
+  user.username = ''
 }

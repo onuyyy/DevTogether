@@ -1,4 +1,3 @@
-<!-- src/routes/+page.svelte -->
 <form on:submit|preventDefault={handleSubmit} class="flex h-screen">
   <!-- 왼쪽: 코드 블록 -->
   <div class="w-1/2 bg-onedark-black">
@@ -63,7 +62,7 @@
   import { goto } from "$app/navigation";
   import Tiptap from "$lib/components/tiptap/tiptap.svelte";
   import Codemirror from "$lib/components/codemirror/codemirror.svelte";
-  import { getUser } from "../../../stores/user.svelte";
+  import { user } from "../../../stores/user.svelte";
   import { testUser } from "$lib/testPostData";
 
   let content = ''
@@ -77,13 +76,13 @@
 
 
     // 데이터 정제
-    const user = getUser()
+    const currentUser: App.UserData = user
 
     const reqData: Api.PostPostsRequest = {
       title: data.get('title') + "",
       code: code,
       content: content,
-      author: user ? user : testUser
+      author: currentUser.username != '' ? currentUser : testUser
     }
 
     // 데이터 묶어서 Json 화
