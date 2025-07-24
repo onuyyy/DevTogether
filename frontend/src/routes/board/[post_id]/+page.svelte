@@ -1,51 +1,35 @@
-<!-- src/routes/+page.svelte -->
 <div class="flex h-screen">
   <!-- 왼쪽: 코드 블록 -->
-  <div class="w-1/2 bg-black">
+  <div class="w-1/2 bg-onedark-black">
     <!-- 윗 블럭 -->
     <div class="flex justify-between bg-white">
       <p class="py-0.25 px-2 m-1">Java 21</p>
-      <button class="border-1 rounded-sm border-black py-0.25 px-2 m-1">코드 복사</button>
+      <button type="button" on:click={copyCode} class="border-1 rounded-sm border-black py-0.25 px-2 m-1">코드 복사</button>
     </div>
     <!-- 코드 부분 -->
-    <div class="bg-black text-white p-4 overflow-scroll no-scrollbar font-mono text-sm leading-tight">
-      <table class="table-fixed w-full">
-        <tbody>
-          <!-- 반복 - data.code 줄 만큼 -->
-          {#each (data.post_code ?? "").split('\n') as line, i}
-            <tr>
-              <!-- 코드 번호 -->
-              <td class="pr-4 text-right text-gray-500 select-none w-8 border-r-1 border-neutral-500">{i + 1}</td>
-              <!-- 코드 내용 -->
-              <td class="align-top"><code class="language-java whitespace-pre">{line}</code></td>
-            </tr>
-          {/each}
-        </tbody>
-      </table>
+    <div class="overflow-scroll no-scrollbar font-mono text-sm leading-tight">
+      <Codemirror code={post.code} readOnly={true} className="text-lg"/>
     </div>
   </div>
 
   <!-- 오른쪽: 글 + 댓글 -->
-  <div class="w-1/2 bg-neutral-200 p-3 overflow-auto">
+  <div class="w-1/2 bg-neutral-200 p-3 overflow-auto h-fit">
     <div class="size-full bg-white rounded-2xl p-6">
       <!-- 게시글 부분 -->
       <div class="mb-4">
-        <h2 class="text-xl font-bold">{data.post_title}</h2>
-        <p class="text-sm text-gray-500">{data.post_uploader.user_name} | {data.post_createdDate}</p>
+        <h2 class="text-xl font-bold">{post.title}</h2>
+        <p class="text-sm text-gray-500">{post.author.username} | {prettydate}</p>
       </div>
 
       <div class="mb-6">
-        <p class="whitespace-pre-wrap">{data.post_content}</p>
+        <p class="tiptap">{@html post.content}</p>
       </div>
       <!-- 댓글 부분 -->
       <div class="border-t pt-4">
-        <h3 class="text-lg font-semibold mb-2">💬 댓글 {data.post_comments.length}개</h3>
+        <h3 class="text-lg font-semibold mb-2">💬 댓글 {post.comments.length}개</h3>
         <div class="space-y-4">
-          <!-- 대댓글 구분은 ml-(x)에 따라서 구분 -->
-          <!-- 아예 댓글 컴포넌트로 만들어서 관리 ㄱㄱ -->
-          {#each data.post_comments as comments}
-            <CommonComment data={comments}/>
-          {/each}
+          <CommentRenderer comments={post.comments} />
+          <CommentWriter postId={data.post.id} />
         </div>
       </div>
     </div>
@@ -56,14 +40,17 @@
 </script>
 
 <script lang="ts">
-    import CommonComment from '$lib/components/commonComment.svelte';
+  import CommentRenderer from '$lib/components/CommentRenderer.svelte';
+  import Codemirror from '$lib/components/codemirror/codemirror.svelte';
 
-  import '../../../app.css'
   import hljs from 'highlight.js';
   import java from 'highlight.js/lib/languages/java'
   import 'highlight.js/styles/github-dark.css'
+  import '$lib/components/tiptap/tiptap.css'
 
   import { onMount } from 'svelte'
+    import CommentWriter from '$lib/components/CommentWriter.svelte';
+    import { prettierDate } from '$lib/util/prettierDate';
 
   hljs.registerLanguage('java', java)
 
@@ -74,6 +61,21 @@
     })
   })
 
-  export let post: { post: App.PostData }
-  const data: App.PostData = post.post
+  export let data: Api.GetPostsByPostId
+  let post = data.post
+  $: post = data.post
+
+  console.log(post)
+
+  const prettydate = prettierDate(new Date(data.post.createDate))
+
+  const copyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(post.code)
+      alert("코드가 복사되었습니다!")
+    } catch (err) {
+      alert("복사에 실패했습니다!" + err)
+      console.log(err)
+    }
+  }
 </script>

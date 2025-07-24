@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+
+@layer components {
+  .u-scope button {
+    @apply w-full rounded-xl;
+    @apply px-5 py-2 my-1;
+  }
+  .u-scope input {
+    @apply w-full bg-white rounded-xl;
+    @apply p-2 my-2;
+  }
+}
