@@ -19,7 +19,7 @@ export const setUser = async (reqData: Api.PostLoginRequest) => {
   const jsonData = JSON.stringify( reqData )
 
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/login`, {
+    const res = await fetch(`/api/user/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
