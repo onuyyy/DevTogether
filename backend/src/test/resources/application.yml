@@ -1,3 +1,22 @@
 spring:
   profiles:
     active: test
+
+# CORS 설정
+cors:
+  allowed-origins:
+    - "http://localhost:5173"
+    - "http://localhost:4173"
+    - "https://devtogether.site"
+    - "https://together.site"
+  allowed-methods:
+    - "GET"
+    - "POST"
+    - "PUT"
+    - "DELETE"
+    - "PATCH"
+    - "OPTIONS"
+  allowed-headers:
+    - "*"
+  allow-credentials: true
+  max-age: 3600
