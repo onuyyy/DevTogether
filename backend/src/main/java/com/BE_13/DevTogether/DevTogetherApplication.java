@@ -2,6 +2,7 @@ package com.BE_13.DevTogether;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
  * 패스트 캠퍼스 백엔드 개발
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author chan
  */
 @SpringBootApplication
+@EnableConfigurationProperties
 public class DevTogetherApplication {
 
     public static void main(String[] args) {
