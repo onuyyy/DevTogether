@@ -42,20 +42,6 @@ class CorsConfigTest {
                 .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "3600"));
     }
 
-    @DisplayName("허용된 Origin에서 요청 시 CORS 헤더가 올바르게 설정된다 - together.site")
-    @Test
-    void corsHeadersSetCorrectlyForAllowedOrigin_TogetherSite() throws Exception {
-        mockMvc.perform(options("/api/posts")
-                        .header(HttpHeaders.ORIGIN, "https://together.site")
-                        .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "POST")
-                        .header(HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS, "content-type"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://together.site"))
-                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,HEAD,POST,PUT,DELETE,PATCH,OPTIONS"))
-                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "content-type"))
-                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true"));
-    }
 
     @DisplayName("허용된 Origin에서 요청 시 CORS 헤더가 올바르게 설정된다 - localhost:5173")
     @Test
@@ -84,20 +70,33 @@ class CorsConfigTest {
     @Test
     void actualGetRequestIncludesCorsHeaders() throws Exception {
         mockMvc.perform(get("/api/posts")
-                        .header(HttpHeaders.ORIGIN, "https://together.site"))
+                        .header(HttpHeaders.ORIGIN, "https://devtogether.site"))
                 .andDo(print())
-                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://together.site"))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://devtogether.site"))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true"));
+    }
+
+    @DisplayName("HEAD 메서드가 CORS에서 지원된다")
+    @Test
+    void headMethodIsSupportedInCors() throws Exception {
+        mockMvc.perform(options("/api/posts")
+                        .header(HttpHeaders.ORIGIN, "https://devtogether.site")
+                        .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "HEAD"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://devtogether.site"))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,HEAD,POST,PUT,DELETE,PATCH,OPTIONS"))
                 .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true"));
     }
 
     @DisplayName("허용된 모든 HTTP 메서드가 CORS에서 지원된다")
     @Test
     void allAllowedMethodsAreSupportedInCors() throws Exception {
-        String[] methods = {"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"};
+        String[] methods = {"GET", "HEAD", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"};
         
         for (String method : methods) {
             mockMvc.perform(options("/api/posts")
-                            .header(HttpHeaders.ORIGIN, "https://together.site")
+                            .header(HttpHeaders.ORIGIN, "https://devtogether.site")
                             .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, method))
                     .andDo(print())
                     .andExpect(status().isOk())
@@ -109,7 +108,7 @@ class CorsConfigTest {
     @Test
     void unauthorizedMethodIsRejectedInCors() throws Exception {
         mockMvc.perform(options("/api/posts")
-                        .header(HttpHeaders.ORIGIN, "https://together.site")
+                        .header(HttpHeaders.ORIGIN, "https://devtogether.site")
                         .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "TRACE"))
                 .andDo(print())
                 .andExpect(status().isForbidden());
@@ -119,13 +118,13 @@ class CorsConfigTest {
     @Test
     void complexRequestPreflightValidation() throws Exception {
         mockMvc.perform(options("/api/posts")
-                        .header(HttpHeaders.ORIGIN, "https://together.site")
+                        .header(HttpHeaders.ORIGIN, "https://devtogether.site")
                         .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "POST")
                         .header(HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS, 
                                 "Content-Type,Authorization,X-Requested-With"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://together.site"))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://devtogether.site"))
                 .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Authorization, X-Requested-With"));
     }
 }

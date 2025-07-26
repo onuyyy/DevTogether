@@ -8,7 +8,6 @@ cors:
     - "http://localhost:5173"
     - "http://localhost:4173"
     - "https://devtogether.site"
-    - "https://together.site"
   allowed-methods:
     - "GET"
     - "HEAD"
