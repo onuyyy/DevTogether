@@ -11,6 +11,7 @@ cors:
     - "https://together.site"
   allowed-methods:
     - "GET"
+    - "HEAD"
     - "POST"
     - "PUT"
     - "DELETE"
