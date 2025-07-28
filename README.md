@@ -1,6 +1,6 @@
-# DevTogether - 코드 리뷰 플랫폼
+# DevTogether - 코드 리뷰 게시판
 
-> FastCampus Backend Development 13기 수강생들이 개발한 코드 리뷰 및 공유 플랫폼
+> FastCampus Backend Development 13기 수강생(정욱, 조희찬, 김윤영) 개발한 코드 리뷰 및 공유 게시판
 
 [![Java](https://img.shields.io/badge/Java-21-orange)](https://openjdk.java.net/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.3-brightgreen)](https://spring.io/projects/spring-boot)
@@ -9,14 +9,70 @@
 개발자들이 코드 스니펫을 공유하고, 게시글을 작성하며, 댓글을 통해 협업할 수 있는 풀스택 웹 애플리케이션입니다.
 실시간 Java 코드 하이라이팅과 리치 텍스트 에디터를 제공하여 효과적인 코드 리뷰와 지식 공유를 지원합니다.
 
+동료들과 코드 리뷰를 하려면 슬랙으로 주고 받거나 직접 만나야 하는데, 가독성과 편의성이 불편하여 코드 중심의 게시판인 DevTogether를 제작하였습니다.
+
+## DevTogether ~ ing
+* [ ] 현재 클라우드플레어 배포 이슈로 트러블슈팅 중
+
+## 🚀 개발 환경 설정
+
+### 사전 요구사항
+- Java 21+
+- Node.js 18+
+- Docker (선택사항)
+
+### 1. 저장소 클론
+```bash
+git clone https://github.com/your-username/DevTogether.git
+cd DevTogether
+```
+
+### 2. 백엔드 실행
+```bash
+cd backend
+./gradlew bootRun
+```
+- 서버: http://localhost:8080
+- H2 Console: http://localhost:8080/h2-console
+- API 문서: http://localhost:8080/swagger-ui.html
+
+### 3. 프론트엔드 실행
+```bash
+cd frontend
+npm install
+npm run dev
+```
+- 개발 서버: http://localhost:5173
+
+### 4. Docker로 실행 (선택사항)
+```bash
+# 백엔드만 실행
+docker-compose up backend
+
+# 전체 빌드 및 실행
+docker-compose up --build
+```
+
+
+## 🔧 주요 명령어
+
+### 백엔드
+- `./gradlew build` - 프로젝트 빌드
+- `./gradlew bootRun` - 애플리케이션 실행
+- `./gradlew test` - 테스트 실행
+
+### 프론트엔드
+- `npm run dev` - 개발 서버 시작
+- `npm run build` - 프로덕션 빌드
+- `npm run preview` - 빌드 결과 미리보기
+
+
 ## 🚀 주요 기능
 
-- 📝 코드 스니펫 공유 및 Java 문법 하이라이팅
-- 💬 실시간 댓글 시스템
-- 👤 사용자 인증 및 권한 관리
+- 📝 코드 스니펫 공유 및 마크다운 기능 탑재
+- 💬 댓글 시스템
+- 👤 사용자 로그인 및 권한 관리
 - 📄 리치 텍스트 에디터 (TipTap)
-- 🏷️ 카테고리별 게시글 분류
-- 📱 반응형 웹 디자인
 
 ## 🛠 기술 스택
 
@@ -61,45 +117,6 @@ DevTogether/
 └── docker-compose.yml         # Docker 설정
 ```
 
-## 🚀 개발 환경 설정
-
-### 사전 요구사항
-- Java 21+
-- Node.js 18+
-- Docker (선택사항)
-
-### 1. 저장소 클론
-```bash
-git clone https://github.com/your-username/DevTogether.git
-cd DevTogether
-```
-
-### 2. 백엔드 실행
-```bash
-cd backend
-./gradlew bootRun
-```
-- 서버: http://localhost:8080
-- H2 Console: http://localhost:8080/h2-console
-- API 문서: http://localhost:8080/swagger-ui.html
-
-### 3. 프론트엔드 실행
-```bash
-cd frontend
-npm install
-npm run dev
-```
-- 개발 서버: http://localhost:5173
-
-### 4. Docker로 실행 (선택사항)
-```bash
-# 백엔드만 실행
-docker-compose up backend
-
-# 전체 빌드 및 실행
-docker-compose up --build
-```
-
 ## 🧪 테스트 실행
 
 ### 백엔드 테스트
@@ -114,18 +131,6 @@ cd backend
 cd frontend
 npm run check
 ```
-
-## 🔧 주요 명령어
-
-### 백엔드
-- `./gradlew build` - 프로젝트 빌드
-- `./gradlew bootRun` - 애플리케이션 실행
-- `./gradlew test` - 테스트 실행
-
-### 프론트엔드
-- `npm run dev` - 개발 서버 시작
-- `npm run build` - 프로덕션 빌드
-- `npm run preview` - 빌드 결과 미리보기
 
 ## 📊 데이터베이스 스키마
 
