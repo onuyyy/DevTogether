@@ -37,7 +37,7 @@
     console.log(jsonData)
 
     try {
-      const res = await fetch('/api/posts/'+postId+'/comments', {
+      const res = await fetch(import.meta.env.VITE_API_URL + '/api/posts/'+postId+'/comments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
