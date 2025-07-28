@@ -26,16 +26,16 @@ class CorsConfigTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @DisplayName("허용된 Origin에서 요청 시 CORS 헤더가 올바르게 설정된다 - devtogether.site")
+    @DisplayName("허용된 Origin에서 요청 시 CORS 헤더가 올바르게 설정된다 - devtogether.pages.dev")
     @Test
     void corsHeadersSetCorrectlyForAllowedOrigin_DevTogetherSite() throws Exception {
         mockMvc.perform(options("/api/posts")
-                        .header(HttpHeaders.ORIGIN, "https://devtogether.site")
+                        .header(HttpHeaders.ORIGIN, "https://devtogether.pages.dev")
                         .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET")
                         .header(HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS, "content-type"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://devtogether.site"))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://devtogether.pages.dev"))
                 .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,HEAD,POST,PUT,DELETE,PATCH,OPTIONS"))
                 .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "content-type"))
                 .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true"))
@@ -70,9 +70,9 @@ class CorsConfigTest {
     @Test
     void actualGetRequestIncludesCorsHeaders() throws Exception {
         mockMvc.perform(get("/api/posts")
-                        .header(HttpHeaders.ORIGIN, "https://devtogether.site"))
+                        .header(HttpHeaders.ORIGIN, "https://devtogether.pages.dev"))
                 .andDo(print())
-                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://devtogether.site"))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://devtogether.pages.dev"))
                 .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true"));
     }
 
@@ -80,11 +80,11 @@ class CorsConfigTest {
     @Test
     void headMethodIsSupportedInCors() throws Exception {
         mockMvc.perform(options("/api/posts")
-                        .header(HttpHeaders.ORIGIN, "https://devtogether.site")
+                        .header(HttpHeaders.ORIGIN, "https://devtogether.pages.dev")
                         .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "HEAD"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://devtogether.site"))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://devtogether.pages.dev"))
                 .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,HEAD,POST,PUT,DELETE,PATCH,OPTIONS"))
                 .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true"));
     }
@@ -96,7 +96,7 @@ class CorsConfigTest {
         
         for (String method : methods) {
             mockMvc.perform(options("/api/posts")
-                            .header(HttpHeaders.ORIGIN, "https://devtogether.site")
+                            .header(HttpHeaders.ORIGIN, "https://devtogether.pages.dev")
                             .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, method))
                     .andDo(print())
                     .andExpect(status().isOk())
@@ -108,7 +108,7 @@ class CorsConfigTest {
     @Test
     void unauthorizedMethodIsRejectedInCors() throws Exception {
         mockMvc.perform(options("/api/posts")
-                        .header(HttpHeaders.ORIGIN, "https://devtogether.site")
+                        .header(HttpHeaders.ORIGIN, "https://devtogether.pages.dev")
                         .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "TRACE"))
                 .andDo(print())
                 .andExpect(status().isForbidden());
@@ -118,13 +118,13 @@ class CorsConfigTest {
     @Test
     void complexRequestPreflightValidation() throws Exception {
         mockMvc.perform(options("/api/posts")
-                        .header(HttpHeaders.ORIGIN, "https://devtogether.site")
+                        .header(HttpHeaders.ORIGIN, "https://devtogether.pages.dev")
                         .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "POST")
                         .header(HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS, 
                                 "Content-Type,Authorization,X-Requested-With"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://devtogether.site"))
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://devtogether.pages.dev"))
                 .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Authorization, X-Requested-With"));
     }
 }
