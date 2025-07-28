@@ -66,7 +66,7 @@
     try {
       // 쿼리 문 추가히기
       // page=${페이지}&limit=${리미트} 형태 문자열 추가하기
-      const res = await fetch(`/api/posts?page=`+page, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts?page=`+page, {
         method: 'GET'
       })
       // 응답 체크
