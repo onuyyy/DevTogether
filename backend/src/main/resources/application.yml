@@ -22,12 +22,6 @@ cors:
   max-age: 3600
 
 server:
-  port: 443
-  ssl:
-    key-store: classpath:keystore.p12
-    key-store-password: ${KEY_STORE_PASSWORD}
-    key-store-type: PKCS12
-    key-alias: devtogether
   servlet:
     encoding:
       charset: UTF-8

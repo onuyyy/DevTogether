@@ -4,7 +4,7 @@ services:
       context: ./backend
     container_name: devtogether-backend
     ports:
-      - "443:443"
+      - "8080:8080"
     depends_on:
       - db
     environment:
@@ -12,7 +12,6 @@ services:
       - SPRING_DATASOURCE_USERNAME=sa
       - SPRING_DATASOURCE_PASSWORD=1234Dev
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-      - KEY_STORE_PASSWORD: ${KEY_STORE_PASSWORD}
 
   db:
     image: mysql:8.0
