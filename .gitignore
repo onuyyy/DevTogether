@@ -1,4 +1,6 @@
 # custom
+keystore.p12
+.env
 .idea
 .DS_Store
 **/logs
